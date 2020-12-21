@@ -1,0 +1,26 @@
+Fluid Framework Notes
+Doug Sherlock
+Sun 2020-12-20 6:00 PM
+Fluid Framework Notes
+
+-Fluid components DO NOT REQUIRE SERVER-SIDE CODE.
+
+-FF is open-source
+
+-FF is JavaScript
+
+-Distributed Data Structures are the primary building block Of the fluid framework. (Examples - SharedMap, ShareString.)
+
+-Fluid components are collections of distributed data structures and business logic
+
+-PrimedComponent Is a base class for your fluid components
+
+-this.root is a member of every PrimedComponent. It is a map of attributes you can add which are automatically shared with other users when your edit your Fluid component.
+
+-all changes to root are saved automatically.
+
+-DDSs have several lifecycle methods.
+
+-add DDS event handlers to define when UI should update.
+
+
