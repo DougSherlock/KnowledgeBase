@@ -3,10 +3,8 @@ Doug Sherlock
 Sun 2020-12-20 6:00 PM
 Fluid Framework Notes
 
--Fluid components DO NOT REQUIRE SERVER-SIDE CODE.
-
+-Fluid components do not require server-side code.  [BUT WHY IS THERE A "FLUID SERVICE"?]
 -FF is open-source
-
 -FF is JavaScript
 
 -Distributed Data Structures are the primary building block Of the fluid framework. (Examples - SharedMap, ShareString.)
@@ -23,4 +21,17 @@ Fluid Framework Notes
 
 -add DDS event handlers to define when UI should update.
 
+DESIGN BEST PRACTICES
+1. Keep the server simple.
+2. Move logic to the client.
+
+FLUID CLIENT has two main parts:
+1. Fluid Loader - defines app logic and contains data.
+2. Fluid Container - loads containers by connecting to the Fluid Service to fetch containers.
+
+FLUID SERVICE
+- Does ALMOST NOTHING.
+- Receives OPERATIONS from a client.
+- Propagates OPERATIONS to all clients in sequential order.
+- DOES NOT PARSE OPS - simply passes them along.
 
