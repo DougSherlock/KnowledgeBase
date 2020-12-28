@@ -17,7 +17,9 @@ Fluid Framework Notes
 
 -all changes to root are saved automatically.
 
--DDSs have several lifecycle methods.
+DDSs have several lifecycle methods:
+- initializingFirstTime
+- hasInitialized
 
 -add DDS event handlers to define when UI should update.
 
@@ -35,3 +37,21 @@ FLUID SERVICE
 - Propagates OPERATIONS to all clients in sequential order.
 - DOES NOT PARSE OPS - simply passes them along.
 
+STEPS TO CREATE A FLUID APP
+1. Write the view.
+2. Define the interface our model will expose.
+3. Write the model using the Fluid Framework.
+4. Include our model in our container.
+5. Connect our container to the service for collaboration.
+6. Connect our model instance to our view for rendering.
+
+The Fluid Framework provides a class called DataObject which we can extend to build our model. 
+
+THE FLUID SERVICE
+
+The Fluid Framework contains a service component.  A reference implementation of a Fluid service called Routerlicious is included in the FluidFramework repo. 
+
+Fluid services like Routerlicious have three responsibilities:
+1. Ordering: They assign monotonically increasing sequence numbers to incoming operations.
+2. Broadcast: They then broadcast the operations to all connected clients, including their sequence numbers.
+3. Storage: They’re also responsible for storing Fluid data in the form of summary operations
