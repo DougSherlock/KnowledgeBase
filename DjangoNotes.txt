@@ -1,0 +1,74 @@
+Django Notes
+
+Command Line:
+>django-admin startproject mysite		# create a new site
+>python manage.py runserver				# start the site server
+>python manage.py startapp polls		# create a new Django app named polls
+>python manage.py migrate					# looks at the INSTALLED_APPS setting and creates any necessary database tables 
+>python manage.py shell						# starts the API shell used to query the database manually
+>python manage.py test polls				# run the tests for the polls app
+
+ --- Folder Structure of Django Project
+ 
+ mysite/
+    manage.py			# basic site management
+    mysite/				# site name
+        __init__.py		# makes this folder a Python package - can be empty or can contain initialization code for the package
+        settings.py		# configuration for the project
+        urls.py				# controls routing
+        asgi.py			# server info
+        wsgi.py			# server info
+		
+--- Folder Structure of a Django App
+
+myapp/
+    __init__.py			# makes this app a Python package
+    admin.py
+    apps.py				# defines the apps for this site as Python classes
+    migrations/			# 
+        __init__.py
+    models.py			# defines the database structure
+    tests.py
+    views.py				# the UI
+	
+--- Routing for a Django Site
+
+Routing is chained from the root folder
+	
+# mysite/urls.py:
+urlpatterns = [
+    path('polls/', include('polls.urls')),		# route to the polls folder
+]	
+# myapp/urls.py:
+urlpatterns = [
+    path('', views.index, name='index'),	# route to the index function in views.py
+]
+# myapp/views.py:
+def index(request):									# return the web page
+    return HttpResponse("Hello, world.  You're at the polls index.")
+
+--- Database for a Django Site
+
+# models.py  - define a table named Question with columns named 'question_text' and 'pub_date'
+from django.db import models
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+# after updating models.py, run the 'migrate' command to apply the changes to the database
+>python manage.py migrate				# Note: migrate is only applied to apps in the INSTALLED_APPS list in settings.py
+		
+--- The Python API Shell
+
+>python manage.py shell								# run the API shell
+>>> from polls.models import Question		# initialize table Question for querying
+>>> Question.objects.all()								# select all objects from the table Question
+>>> q = Question.objects.get(pk=1)			# select the question whose primary key is 1
+>>> q.choice_set.create(choice_text='Not much', votes=0)		# add a new Choice record for the selected Question
+>>> q.choice_set.all()									# select all the Choice records for the selected Question
+
+--- Python Site Administration
+
+>python manage.py createsuperuser			# create an admin user
+
+		
